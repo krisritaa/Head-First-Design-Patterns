@@ -1,6 +1,9 @@
 package headfirst.designpatterns.proxy.gumballmonitor;
 
-public class GumballMachine {
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
+
+public class GumballMachine extends UnicastRemoteObject implements GumballMachineServer{
 	State soldOutState;
 	State noQuarterState;
 	State hasQuarterState;
@@ -10,8 +13,10 @@ public class GumballMachine {
 	State state = soldOutState;
 	int count = 0;
  	String location;
- 
-	public GumballMachine(String location, int count) {
+
+
+
+    public GumballMachine(String location, int count)  throws RemoteException {
 		soldOutState = new SoldOutState(this);
 		noQuarterState = new NoQuarterState(this);
 		hasQuarterState = new HasQuarterState(this);
